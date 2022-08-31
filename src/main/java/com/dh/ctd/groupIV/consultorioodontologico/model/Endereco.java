@@ -1,10 +1,10 @@
 package com.dh.ctd.groupIV.consultorioodontologico.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.time.LocalDate;
-
 @Data
+@AllArgsConstructor
 public class Endereco {
     private Integer id;
     private String logradouro;
@@ -12,6 +12,7 @@ public class Endereco {
     private String complemento;
     private String bairro;
     private String municipio;
-    private Estado estado;
+    private String estado;
     private String cep;
+    private String pais;
 }
