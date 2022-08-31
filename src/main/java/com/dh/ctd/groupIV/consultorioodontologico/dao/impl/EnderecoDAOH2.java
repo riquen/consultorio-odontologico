@@ -22,7 +22,7 @@ public class EnderecoDAOH2 implements IDao<Endereco> {
     public Endereco cadastrar(Endereco endereco) throws SQLException {
         log.info("Abrindo conexão");
 
-        String SQLInsert = String.format("INSERT INTO endereco(logradouro, numero, complemento,bairro,municipio," +
+        String SQLInsert = String.format("INSERT INTO endereco (logradouro, numero, complemento,bairro,municipio," +
                 "estado,cep,pais) VALUES ('%s','%s','%s','%s','%s','%s','%s','%s');",
                 endereco.getLogradouro(),endereco.getNumero(),endereco.getComplemento(),endereco.getBairro(),
                 endereco.getMunicipio(),endereco.getEstado(),endereco.getCep(),endereco.getPais());
