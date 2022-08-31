@@ -15,4 +15,12 @@ public class EnderecoService {
     public Endereco cadastrar(Endereco endereco) throws SQLException {
         return enderecoDaoH2.cadastrar(endereco);
     }
+
+    public void alterar(Endereco endereco) throws SQLException {
+        enderecoDaoH2.alterar(endereco);
+    }
+
+    public void excluir(Endereco endereco) throws SQLException {
+        enderecoDaoH2.excluir(endereco);
+    }
 }
