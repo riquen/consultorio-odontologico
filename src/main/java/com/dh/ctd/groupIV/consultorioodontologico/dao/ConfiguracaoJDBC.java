@@ -20,9 +20,9 @@ public class ConfiguracaoJDBC {
     public Connection getConnection() {
         Connection connection = null;
         try {
-            Class.forName(this.jdbcDriver);
+            //Class.forName(this.jdbcDriver);
             connection = DriverManager.getConnection(this.dbUrl, this.usuario, this.senha);
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return connection;
