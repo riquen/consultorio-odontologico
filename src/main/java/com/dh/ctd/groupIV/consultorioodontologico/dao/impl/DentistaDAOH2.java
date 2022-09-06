@@ -38,7 +38,7 @@ public class DentistaDAOH2 implements IDao<Dentista> {
             ResultSet resultSet = statement.getGeneratedKeys();
 
             if (resultSet.next())
-                dentista.setId(resultSet.getInt(1));
+                dentista.setId(resultSet.getLong(1));
 
         } catch (Exception e) {
             e.printStackTrace();

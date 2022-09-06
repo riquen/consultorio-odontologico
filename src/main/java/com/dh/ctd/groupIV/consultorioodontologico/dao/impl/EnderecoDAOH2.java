@@ -40,7 +40,7 @@ public class EnderecoDAOH2 implements IDao<Endereco> {
             ResultSet resultSet = statement.getGeneratedKeys();
 
             if (resultSet.next())
-                endereco.setId(resultSet.getInt(1));
+                endereco.setId(resultSet.getLong(1));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,7 +91,7 @@ public class EnderecoDAOH2 implements IDao<Endereco> {
     }
 
     private Endereco criarObjetoEndereco(ResultSet result) throws SQLException {
-        Integer id = result.getInt("ID");
+        Long id = result.getLong("ID");
         String logradouro = result.getString("logradouro");
         String numero = result.getString("numero");
         String complemento = result.getString("complemento");

@@ -18,7 +18,7 @@ public class EnderecoController {
     EnderecoService service;
 
     @GetMapping(value = "")
-    public String cadastraEndereco() throws SQLException {
+    public String cadastraEndereco() {
 
         Endereco endereco = new Endereco(null, "Oi", "Teste", "Teste", "Teste", "Teste", "Teste", "Teste", "Teste");
         service.cadastrar(endereco);
@@ -28,19 +28,19 @@ public class EnderecoController {
     }
 
     @GetMapping(value = "/alterar")
-    public String alteraEndereco() throws SQLException {
+    public String alteraEndereco() {
 
-        Endereco endereco = new Endereco(2, "Rua Legal", "123", null, null, null, null, null, null);
+        Endereco endereco = new Endereco(new Long(2), "Rua Legal", "123", null, null, null, null, null, null);
         service.alterar(endereco);
 
         return "Hello alteração";
     }
 
     @GetMapping(value = "/excluir")
-    public String excluiEndereco() throws SQLException {
+    public String excluiEndereco() {
 
-        Endereco endereco = new Endereco(2, "Rua Legal", "123", null, null, null, null, null, null);
-        service.excluir(endereco);
+        Endereco endereco = new Endereco(new Long(2), "Rua Legal", "123", null, null, null, null, null, null);
+        service.excluir(endereco.getId());
 
         return "Hello exclusão";
     }
