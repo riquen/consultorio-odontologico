@@ -2,15 +2,14 @@ package com.dh.ctd.groupIV.consultorioodontologico.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Paciente {
     @Id
@@ -18,8 +17,15 @@ public class Paciente {
     private Long id;
 
     private String nome;
+
     private String sobrenome;
-//    private Endereco endereco;
+
+    @OneToOne
+    @JoinColumn(name = "id_endereco")
+    private Endereco endereco;
+
+    @Column(unique = true)
     private String rg;
+
     private LocalDate dataDeCadastro;
 }

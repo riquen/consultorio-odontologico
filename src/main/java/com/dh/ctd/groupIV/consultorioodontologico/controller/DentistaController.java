@@ -2,13 +2,12 @@ package com.dh.ctd.groupIV.consultorioodontologico.controller;
 
 import com.dh.ctd.groupIV.consultorioodontologico.model.Dentista;
 import com.dh.ctd.groupIV.consultorioodontologico.service.DentistaService;
-import org.apache.coyote.Response;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLException;
 import java.util.Optional;
 
 @RestController
