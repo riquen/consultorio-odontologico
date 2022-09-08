@@ -14,22 +14,22 @@ import java.util.Optional;
 @RequestMapping("/consulta")
 public class ConsultaController {
     @Autowired
-    ConsultaService dentistaService;
+    ConsultaService consultaService;
 
     @PostMapping
     public Consulta cadastraConsulta(@RequestBody Consulta consulta) {
-        return dentistaService.cadastrar(consulta);
+        return consultaService.cadastrar(consulta);
     }
 
     @PatchMapping
     public Consulta alteraConsulta(@RequestBody Consulta consulta) {
-        return dentistaService.alterar(consulta);
+        return consultaService.alterar(consulta);
     }
 
     @GetMapping
     public ResponseEntity consultaConsulta(@RequestParam(value = "id", required = false)Long id) {
         if(id != null) {
-            Optional<Consulta> optionalConsulta = dentistaService.consultaConsultaPorId(id);
+            Optional<Consulta> optionalConsulta = consultaService.consultaConsultaPorId(id);
             if(optionalConsulta.isEmpty()
             ) {
                 return new ResponseEntity("Consulta não encontrada", HttpStatus.NOT_FOUND);
