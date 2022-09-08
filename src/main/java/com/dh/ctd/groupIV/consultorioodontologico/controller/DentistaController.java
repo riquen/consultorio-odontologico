@@ -37,7 +37,7 @@ public class DentistaController {
                 return new ResponseEntity(optionalDentista.get(),HttpStatus.OK);
             }
         } else {
-            return new ResponseEntity("Lista dentista", HttpStatus.OK);
+            return new ResponseEntity("Lista dentistas", HttpStatus.OK);
         }
     }
 }

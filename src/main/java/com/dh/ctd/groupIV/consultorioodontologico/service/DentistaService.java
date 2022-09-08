@@ -1,13 +1,10 @@
 package com.dh.ctd.groupIV.consultorioodontologico.service;
 
-import com.dh.ctd.groupIV.consultorioodontologico.dao.IDao;
 import com.dh.ctd.groupIV.consultorioodontologico.model.Dentista;
 import com.dh.ctd.groupIV.consultorioodontologico.repository.DentistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Optional;
 
 @Service

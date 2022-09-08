@@ -36,7 +36,7 @@ public class PacienteController {
                 return new ResponseEntity(optionalPaciente.get(),HttpStatus.OK);
             }
         } else {
-            return new ResponseEntity("Lista paciente", HttpStatus.OK);
+            return new ResponseEntity("Lista pacientes", HttpStatus.OK);
         }
     }
 }
