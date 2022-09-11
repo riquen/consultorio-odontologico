@@ -28,4 +28,5 @@ public enum Estado {
     SE,
     TO,
     DF,
+    EX,
 }

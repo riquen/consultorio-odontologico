@@ -25,6 +25,8 @@ public class PacienteService {
         return pacienteRepository.save(paciente);
     }
 
+    public void excluir(Long id) { pacienteRepository.deleteById(id); }
+
     private Paciente compararPaciente(Paciente pacienteUsuario, Paciente pacienteBanco) {
         String nome = (pacienteUsuario.getNome() != null) ? pacienteUsuario.getNome() : pacienteBanco.getNome();
         String sobrenome = (pacienteUsuario.getSobrenome() != null) ? pacienteUsuario.getSobrenome() : pacienteBanco.getSobrenome();
@@ -38,5 +40,7 @@ public class PacienteService {
     public Optional<Paciente> consultaPacientePorId (Long id) {
         return pacienteRepository.findById(id);
     }
+
+
 }
 
