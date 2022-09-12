@@ -5,6 +5,7 @@ import com.dh.ctd.groupIV.consultorioodontologico.repository.DentistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,9 +18,19 @@ public class DentistaService {
     }
 
     public Dentista alterar(Dentista dentistaUsuario) {
-        Dentista dentistaBanco = dentistaRepository.getReferenceById(dentistaUsuario.getId());
-        Dentista dentista = compararDentista(dentistaUsuario, dentistaBanco);
+        Optional<Dentista> dentistaBanco = dentistaRepository.findById(dentistaUsuario.getId());
+        Dentista dentista = compararDentista(dentistaUsuario, dentistaBanco.get());
         return dentistaRepository.save(dentista);
+    }
+
+    public Optional<Dentista> consultaDentistaPorId (Long id) {
+        return dentistaRepository.findById(id);
+    }
+
+    public List<Dentista> consultaDentistas () {
+
+        return dentistaRepository.findAll();
+
     }
 
     private Dentista compararDentista(Dentista dentistaUsuario, Dentista dentistaBanco) {
@@ -30,8 +41,5 @@ public class DentistaService {
         return new Dentista(dentistaUsuario.getId(), nome, sobrenome, matriculaDeCadastro);
     }
 
-    public Optional<Dentista> consultaDentistaPorId (Long id) {
-        return dentistaRepository.findById(id);
-    }
 }
 

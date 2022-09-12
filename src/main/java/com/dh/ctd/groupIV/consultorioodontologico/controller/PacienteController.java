@@ -18,7 +18,9 @@ public class PacienteController {
 
     @PostMapping
     public Paciente cadastraPaciente(@RequestBody Paciente paciente) {
+
         return pacienteService.cadastrar(paciente);
+
     }
 
     @PatchMapping
@@ -37,7 +39,7 @@ public class PacienteController {
                 return new ResponseEntity(optionalPaciente.get(),HttpStatus.OK);
             }
         } else {
-            return new ResponseEntity("Lista pacientes", HttpStatus.OK);
+            return new ResponseEntity(pacienteService.consultaPacientes(), HttpStatus.OK);
         }
     }
 

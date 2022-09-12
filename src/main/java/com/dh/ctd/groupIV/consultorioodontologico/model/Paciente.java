@@ -1,5 +1,6 @@
 package com.dh.ctd.groupIV.consultorioodontologico.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,12 +21,13 @@ public class Paciente {
 
     private String sobrenome;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id_endereco")
     private Endereco endereco;
 
     @Column(unique = true)
     private String rg;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate dataDeCadastro;
 }
