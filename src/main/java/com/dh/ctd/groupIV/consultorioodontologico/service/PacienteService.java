@@ -27,8 +27,8 @@ public class PacienteService {
     }
 
     public Paciente alterar(Paciente pacienteUsuario) {
-        Paciente pacienteBanco = pacienteRepository.getReferenceById(pacienteUsuario.getId());
-        Paciente paciente = compararPaciente(pacienteUsuario, pacienteBanco);
+        Optional <Paciente> pacienteBanco = pacienteRepository.findById(pacienteUsuario.getId());
+        Paciente paciente = compararPaciente(pacienteUsuario, pacienteBanco.get());
         return pacienteRepository.save(paciente);
     }
 

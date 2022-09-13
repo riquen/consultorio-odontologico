@@ -37,7 +37,7 @@ public class ConsultaController {
                 return new ResponseEntity(optionalConsulta.get(),HttpStatus.OK);
             }
         } else {
-            return new ResponseEntity("Lista consultas", HttpStatus.OK);
+            return new ResponseEntity(consultaService.consultaConsultas(), HttpStatus.OK);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.dh.ctd.groupIV.consultorioodontologico.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,12 +17,13 @@ public class Consulta {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToOne()
     @JoinColumn(name = "id_paciente")
     private Paciente paciente;
 
     @OneToOne
     @JoinColumn(name = "id_dentista")
     private Dentista dentista;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private LocalDateTime dataHora;
 }
