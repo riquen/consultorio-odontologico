@@ -60,6 +60,5 @@ public class PacienteService {
 
         return new Paciente(pacienteUsuario.getId(), nome, sobrenome, endereco, rg, dataDeCadastro);
     }
-
 }
 

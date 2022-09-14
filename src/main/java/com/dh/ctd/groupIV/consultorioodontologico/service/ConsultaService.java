@@ -10,6 +10,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -18,10 +19,18 @@ import java.util.Optional;
 public class ConsultaService {
     @Autowired
     ConsultaRepository consultaRepository;
+    @Autowired
+    DentistaRepository dentistaRepository;
+    @Autowired
+    PacienteRepository pacienteRepository;
 
     Logger logger = Logger.getLogger(ConsultaService.class);
 
-    public Consulta cadastrar(Consulta consulta) {
+    public Consulta cadastrar(Consulta consulta) throws SQLException {
+      if (dentistaRepository.findById(consulta.getDentista().getId()).isEmpty()){
+          logger.error("ID de Dentista inválido!");
+          throw new SQLException();
+      };
       Consulta consultaSalva = consultaRepository.saveAndFlush(consulta);
       logger.info("Consulta cadastrada com sucesso!");
       return consultaRepository.findById(consultaSalva.getId()).get();

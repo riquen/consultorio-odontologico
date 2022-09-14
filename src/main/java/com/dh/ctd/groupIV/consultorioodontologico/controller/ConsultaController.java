@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.Optional;
 
 @RestController
@@ -17,8 +18,12 @@ public class ConsultaController {
     ConsultaService consultaService;
 
     @PostMapping
-    public Consulta cadastraConsulta(@RequestBody Consulta consulta) {
-        return consultaService.cadastrar(consulta);
+    public ResponseEntity cadastraConsulta(@RequestBody Consulta consulta) {
+        try {
+            return new ResponseEntity(consultaService.cadastrar(consulta), HTTPStatus.OK);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PatchMapping
