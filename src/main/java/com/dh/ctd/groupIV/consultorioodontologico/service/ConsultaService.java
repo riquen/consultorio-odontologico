@@ -6,6 +6,7 @@ import com.dh.ctd.groupIV.consultorioodontologico.model.Paciente;
 import com.dh.ctd.groupIV.consultorioodontologico.repository.ConsultaRepository;
 import com.dh.ctd.groupIV.consultorioodontologico.repository.DentistaRepository;
 import com.dh.ctd.groupIV.consultorioodontologico.repository.PacienteRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,17 +19,20 @@ public class ConsultaService {
     @Autowired
     ConsultaRepository consultaRepository;
 
-
+    Logger logger = Logger.getLogger(ConsultaService.class);
 
     public Consulta cadastrar(Consulta consulta) {
       Consulta consultaSalva = consultaRepository.saveAndFlush(consulta);
+      logger.info("Consulta cadastrada com sucesso!");
       return consultaRepository.findById(consultaSalva.getId()).get();
     }
 
     public Consulta alterar(Consulta consultaUsuario) {
         Optional <Consulta> consultaBanco = consultaRepository.findById(consultaUsuario.getId());
         Consulta consulta = compararConsulta(consultaUsuario, consultaBanco.get());
-        return consultaRepository.save(consulta);
+        Consulta consultaSalva = consultaRepository.save(consulta);
+        logger.info("Consulta alterada com sucesso!");
+        return consultaSalva;
     }
 
     private Consulta compararConsulta(Consulta consultaUsuario, Consulta consultaBanco) {

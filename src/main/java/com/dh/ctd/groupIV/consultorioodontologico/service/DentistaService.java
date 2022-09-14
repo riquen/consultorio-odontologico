@@ -2,6 +2,7 @@ package com.dh.ctd.groupIV.consultorioodontologico.service;
 
 import com.dh.ctd.groupIV.consultorioodontologico.model.Dentista;
 import com.dh.ctd.groupIV.consultorioodontologico.repository.DentistaRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +14,20 @@ public class DentistaService {
     @Autowired
     DentistaRepository dentistaRepository;
 
+    Logger logger = Logger.getLogger(DentistaService.class);
+
     public Dentista cadastrar(Dentista dentista) {
-        return dentistaRepository.save(dentista);
+        Dentista dentistaSalvo = dentistaRepository.save(dentista);
+        logger.info("Dentista salvo com sucesso!");
+        return dentistaSalvo;
     }
 
     public Dentista alterar(Dentista dentistaUsuario) {
         Optional<Dentista> dentistaBanco = dentistaRepository.findById(dentistaUsuario.getId());
         Dentista dentista = compararDentista(dentistaUsuario, dentistaBanco.get());
-        return dentistaRepository.save(dentista);
+        Dentista dentistaSalvo = dentistaRepository.save(dentista);
+        logger.info("Dentista alterado com sucesso!");
+        return dentistaSalvo;
     }
 
     public Optional<Dentista> consultaDentistaPorId (Long id) {

@@ -2,6 +2,7 @@ package com.dh.ctd.groupIV.consultorioodontologico.service;
 
 import com.dh.ctd.groupIV.consultorioodontologico.model.Endereco;
 import com.dh.ctd.groupIV.consultorioodontologico.repository.EnderecoRepository;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +12,18 @@ public class EnderecoService {
     @Autowired
     EnderecoRepository enderecoRepository;
 
+    Logger logger = Logger.getLogger(EnderecoService.class);
     public Endereco cadastrar(Endereco endereco) {
-        return enderecoRepository.save(endereco);
+        Endereco enderecoCadastrado = enderecoRepository.save(endereco);
+        logger.info("Endereço cadastrado com sucesso!");
+        return enderecoCadastrado;
     }
 
     public void alterar(Endereco enderecoUsuario) {
         Endereco enderecoBanco = enderecoRepository.getReferenceById(enderecoUsuario.getId());
         Endereco endereco = compararEndereco(enderecoUsuario, enderecoBanco);
         enderecoRepository.save(endereco);
+        logger.info("Endereço alterado com sucesso!");
     }
 
     public void excluir(Long enderecoId) {
