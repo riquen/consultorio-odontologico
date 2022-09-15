@@ -1,5 +1,6 @@
 package com.dh.ctd.groupIV.consultorioodontologico.controller;
 
+import com.dh.ctd.groupIV.consultorioodontologico.exceptions.ResourceNotFoundException;
 import com.dh.ctd.groupIV.consultorioodontologico.model.Paciente;
 import com.dh.ctd.groupIV.consultorioodontologico.service.PacienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class PacienteController {
     }
 
     @DeleteMapping
-    public void excluir(@RequestParam("id") Long id) {
+    public void excluir(@RequestParam("id") Long id) throws ResourceNotFoundException {
         pacienteService.excluir(id);}
 }
 

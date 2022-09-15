@@ -20,7 +20,7 @@ public class ConsultaController {
     @PostMapping
     public ResponseEntity cadastraConsulta(@RequestBody Consulta consulta) {
         try {
-            return new ResponseEntity(consultaService.cadastrar(consulta), HTTPStatus.OK);
+            return new ResponseEntity(consultaService.cadastrar(consulta), HttpStatus.OK);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

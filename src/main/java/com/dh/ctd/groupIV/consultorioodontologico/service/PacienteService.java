@@ -1,5 +1,6 @@
 package com.dh.ctd.groupIV.consultorioodontologico.service;
 
+import com.dh.ctd.groupIV.consultorioodontologico.exceptions.ResourceNotFoundException;
 import com.dh.ctd.groupIV.consultorioodontologico.model.Endereco;
 import com.dh.ctd.groupIV.consultorioodontologico.model.Paciente;
 import com.dh.ctd.groupIV.consultorioodontologico.repository.EnderecoRepository;
@@ -36,7 +37,11 @@ public class PacienteService {
         return pacienteAlterado;
     }
 
-    public void excluir(Long id) {
+    public void excluir(Long id) throws ResourceNotFoundException {
+        pacienteRepository.findById(id).orElseThrow(() ->{
+            logger.error("Paciente não encontrado");
+            return new ResourceNotFoundException("Requisição inválida");
+        });
         pacienteRepository.deleteById(id);
         logger.info("Paciente excluído com sucesso!");
     }
