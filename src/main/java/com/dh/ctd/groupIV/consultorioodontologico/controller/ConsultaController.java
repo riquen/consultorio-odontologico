@@ -1,6 +1,6 @@
 package com.dh.ctd.groupIV.consultorioodontologico.controller;
 
-import com.dh.ctd.groupIV.consultorioodontologico.model.Consulta;
+import com.dh.ctd.groupIV.consultorioodontologico.entity.Consulta;
 import com.dh.ctd.groupIV.consultorioodontologico.service.ConsultaService;
 
 import org.springframework.beans.factory.annotation.Autowired;

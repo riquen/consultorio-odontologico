@@ -1,6 +1,6 @@
 package com.dh.ctd.groupIV.consultorioodontologico.service;
 
-import com.dh.ctd.groupIV.consultorioodontologico.model.Endereco;
+import com.dh.ctd.groupIV.consultorioodontologico.entity.Endereco;
 import com.dh.ctd.groupIV.consultorioodontologico.repository.EnderecoRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

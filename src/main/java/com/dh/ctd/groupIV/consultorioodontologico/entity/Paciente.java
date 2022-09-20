@@ -1,4 +1,4 @@
-package com.dh.ctd.groupIV.consultorioodontologico.model;
+package com.dh.ctd.groupIV.consultorioodontologico.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;

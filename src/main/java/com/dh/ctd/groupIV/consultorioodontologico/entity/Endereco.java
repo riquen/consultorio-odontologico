@@ -1,4 +1,4 @@
-package com.dh.ctd.groupIV.consultorioodontologico.model;
+package com.dh.ctd.groupIV.consultorioodontologico.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

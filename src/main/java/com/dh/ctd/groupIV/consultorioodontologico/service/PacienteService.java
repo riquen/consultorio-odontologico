@@ -1,8 +1,8 @@
 package com.dh.ctd.groupIV.consultorioodontologico.service;
 
 import com.dh.ctd.groupIV.consultorioodontologico.exceptions.ResourceNotFoundException;
-import com.dh.ctd.groupIV.consultorioodontologico.model.Endereco;
-import com.dh.ctd.groupIV.consultorioodontologico.model.Paciente;
+import com.dh.ctd.groupIV.consultorioodontologico.entity.Endereco;
+import com.dh.ctd.groupIV.consultorioodontologico.entity.Paciente;
 import com.dh.ctd.groupIV.consultorioodontologico.repository.EnderecoRepository;
 import com.dh.ctd.groupIV.consultorioodontologico.repository.PacienteRepository;
 import org.apache.log4j.Logger;

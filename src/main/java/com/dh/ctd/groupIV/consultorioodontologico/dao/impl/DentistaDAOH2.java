@@ -2,7 +2,7 @@ package com.dh.ctd.groupIV.consultorioodontologico.dao.impl;
 
 import com.dh.ctd.groupIV.consultorioodontologico.dao.ConfiguracaoJDBC;
 import com.dh.ctd.groupIV.consultorioodontologico.dao.IDao;
-import com.dh.ctd.groupIV.consultorioodontologico.model.Dentista;
+import com.dh.ctd.groupIV.consultorioodontologico.entity.Dentista;
 import org.springframework.context.annotation.Configuration;
 
 import java.sql.Connection;

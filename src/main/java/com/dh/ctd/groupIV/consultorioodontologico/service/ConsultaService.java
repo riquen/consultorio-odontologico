@@ -1,8 +1,8 @@
 package com.dh.ctd.groupIV.consultorioodontologico.service;
 
-import com.dh.ctd.groupIV.consultorioodontologico.model.Consulta;
-import com.dh.ctd.groupIV.consultorioodontologico.model.Dentista;
-import com.dh.ctd.groupIV.consultorioodontologico.model.Paciente;
+import com.dh.ctd.groupIV.consultorioodontologico.entity.Consulta;
+import com.dh.ctd.groupIV.consultorioodontologico.entity.Dentista;
+import com.dh.ctd.groupIV.consultorioodontologico.entity.Paciente;
 import com.dh.ctd.groupIV.consultorioodontologico.repository.ConsultaRepository;
 import com.dh.ctd.groupIV.consultorioodontologico.repository.DentistaRepository;
 import com.dh.ctd.groupIV.consultorioodontologico.repository.PacienteRepository;

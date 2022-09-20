@@ -1,6 +1,6 @@
 package com.dh.ctd.groupIV.consultorioodontologico.repository;
 
-import com.dh.ctd.groupIV.consultorioodontologico.model.Endereco;
+import com.dh.ctd.groupIV.consultorioodontologico.entity.Endereco;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

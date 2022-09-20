@@ -1,6 +1,6 @@
 package com.dh.ctd.groupIV.consultorioodontologico.service;
 
-import com.dh.ctd.groupIV.consultorioodontologico.model.Dentista;
+import com.dh.ctd.groupIV.consultorioodontologico.entity.Dentista;
 import com.dh.ctd.groupIV.consultorioodontologico.repository.DentistaRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
