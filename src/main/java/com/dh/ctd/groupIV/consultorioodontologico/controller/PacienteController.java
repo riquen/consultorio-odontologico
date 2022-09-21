@@ -1,5 +1,6 @@
 package com.dh.ctd.groupIV.consultorioodontologico.controller;
 
+import com.dh.ctd.groupIV.consultorioodontologico.exceptions.CadastroInvalidoException;
 import com.dh.ctd.groupIV.consultorioodontologico.exceptions.ResourceNotFoundException;
 import com.dh.ctd.groupIV.consultorioodontologico.entity.Paciente;
 import com.dh.ctd.groupIV.consultorioodontologico.service.PacienteService;
@@ -17,27 +18,22 @@ public class PacienteController {
     PacienteService pacienteService;
 
     @PostMapping
-    public Paciente cadastraPaciente(@RequestBody Paciente paciente) {
+    public Paciente cadastraPaciente(@RequestBody Paciente paciente) throws CadastroInvalidoException {
 
         return pacienteService.cadastrar(paciente);
 
     }
 
     @PatchMapping
-    public Paciente alteraPaciente(@RequestBody Paciente paciente) {
+    public Paciente alteraPaciente(@RequestBody Paciente paciente) throws ResourceNotFoundException {
         return pacienteService.alterar(paciente);
     }
 
     @GetMapping
-    public ResponseEntity consultaPaciente(@RequestParam(value = "id", required = false)Long id) {
+    public ResponseEntity consultaPaciente(@RequestParam(value = "id", required = false)Long id) throws ResourceNotFoundException {
         if(id != null) {
-            Optional<Paciente> optionalPaciente = pacienteService.consultaPacientePorId(id);
-            if(optionalPaciente.isEmpty()
-            ) {
-                return new ResponseEntity("Paciente não encontrado", HttpStatus.NOT_FOUND);
-            } else {
-                return new ResponseEntity(optionalPaciente.get(),HttpStatus.OK);
-            }
+            Paciente paciente = pacienteService.consultaPacientePorId(id);
+            return new ResponseEntity(paciente,HttpStatus.OK);
         } else {
             return new ResponseEntity(pacienteService.consultaPacientes(), HttpStatus.OK);
         }

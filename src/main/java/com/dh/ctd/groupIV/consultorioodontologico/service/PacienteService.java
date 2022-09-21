@@ -1,5 +1,6 @@
 package com.dh.ctd.groupIV.consultorioodontologico.service;
 
+import com.dh.ctd.groupIV.consultorioodontologico.exceptions.CadastroInvalidoException;
 import com.dh.ctd.groupIV.consultorioodontologico.exceptions.ResourceNotFoundException;
 import com.dh.ctd.groupIV.consultorioodontologico.entity.Endereco;
 import com.dh.ctd.groupIV.consultorioodontologico.entity.Paciente;
@@ -7,6 +8,8 @@ import com.dh.ctd.groupIV.consultorioodontologico.repository.EnderecoRepository;
 import com.dh.ctd.groupIV.consultorioodontologico.repository.PacienteRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,19 +22,28 @@ public class PacienteService {
     @Autowired
     PacienteRepository pacienteRepository;
 
-    @Autowired
-    EnderecoRepository enderecoRepository;
-
     Logger logger = Logger.getLogger(PacienteService.class);
-    public Paciente cadastrar(Paciente paciente) {
-        Paciente pacienteCadastrado = pacienteRepository.save(paciente);
+
+    public Paciente cadastrar(Paciente paciente) throws CadastroInvalidoException {
+        Paciente pacienteCadastrado = null;
+        try {
+            pacienteCadastrado = pacienteRepository.save(paciente);
+        } catch (Exception e) {
+            logger.error("Erro ao cadastrar paciente");
+            logger.error(e.getMessage());
+            throw new CadastroInvalidoException("Cadastro inválido");
+        }
         logger.info("Paciente cadastrado com sucesso!");
         return pacienteCadastrado;
     }
 
-    public Paciente alterar(Paciente pacienteUsuario) {
-        Optional <Paciente> pacienteBanco = pacienteRepository.findById(pacienteUsuario.getId());
-        Paciente paciente = compararPaciente(pacienteUsuario, pacienteBanco.get());
+    public Paciente alterar(Paciente pacienteUsuario) throws ResourceNotFoundException {
+        Paciente pacienteBanco = pacienteRepository.findById(pacienteUsuario.getId())
+                .orElseThrow(() ->{
+                    logger.error("Paciente não encontrado");
+                    return new ResourceNotFoundException("Requisição inválida");
+                });
+        Paciente paciente = compararPaciente(pacienteUsuario, pacienteBanco);
         Paciente pacienteAlterado = pacienteRepository.save(paciente);
         logger.info("Paciente alterado com sucesso!");
         return pacienteAlterado;
@@ -46,8 +58,13 @@ public class PacienteService {
         logger.info("Paciente excluído com sucesso!");
     }
 
-    public Optional<Paciente> consultaPacientePorId (Long id) {
-        return pacienteRepository.findById(id);
+    public Paciente consultaPacientePorId (Long id) throws ResourceNotFoundException {
+
+        return pacienteRepository.findById(id).orElseThrow(() ->{
+            logger.error("Paciente não encontrado");
+            return new ResourceNotFoundException("Requisição inválida");
+        });
+
     }
 
     public List<Paciente> consultaPacientes () {

@@ -1,5 +1,6 @@
 package com.dh.ctd.groupIV.consultorioodontologico.exceptions.handlers;
 
+import com.dh.ctd.groupIV.consultorioodontologico.exceptions.CadastroInvalidoException;
 import com.dh.ctd.groupIV.consultorioodontologico.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,4 +13,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> processarExceptionResourceNotFound(ResourceNotFoundException ex){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
+
+    @ExceptionHandler(CadastroInvalidoException.class)
+    public ResponseEntity<String> processarExceptionCadastroInvalido(CadastroInvalidoException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
 }
