@@ -33,10 +33,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers(HttpMethod.POST,"/consulta").hasAnyAuthority("ADMIN","USER")
+        http.csrf().disable().authorizeRequests()
+                .antMatchers("/consulta").hasAnyAuthority("ADMIN","USER")
                 .antMatchers("/dentista", "/paciente").hasAuthority("ADMIN")
-                //.antMatchers("/paciente").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.POST,"/auth").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(autenticacaoViaTokenFilter, UsernamePasswordAuthenticationFilter.class);
