@@ -1,13 +1,14 @@
 package com.dh.ctd.groupIV.consultorioodontologico.service;
 
 import com.dh.ctd.groupIV.consultorioodontologico.entity.Dentista;
+import com.dh.ctd.groupIV.consultorioodontologico.exceptions.CadastroInvalidoException;
+import com.dh.ctd.groupIV.consultorioodontologico.exceptions.ResourceNotFoundException;
 import com.dh.ctd.groupIV.consultorioodontologico.repository.DentistaRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class DentistaService {
@@ -16,25 +17,41 @@ public class DentistaService {
 
     Logger logger = Logger.getLogger(DentistaService.class);
 
-    public Dentista cadastrar(Dentista dentista) {
-        Dentista dentistaSalvo = dentistaRepository.save(dentista);
-        logger.info("Dentista salvo com sucesso!");
-        return dentistaSalvo;
+    public Dentista cadastrar(Dentista dentista) throws CadastroInvalidoException {
+        Dentista dentistaCadastrado = null;
+        try {
+            dentistaCadastrado = dentistaRepository.save(dentista);
+        } catch (Exception e) {
+            logger.error("Erro ao cadastrar dentista");
+            logger.error(e.getMessage());
+            throw new CadastroInvalidoException("Cadastro inválido");
+        }
+        logger.info("Dentista cadastrado com sucesso!");
+        return dentistaCadastrado;
     }
 
-    public Dentista alterar(Dentista dentistaUsuario) {
-        Optional<Dentista> dentistaBanco = dentistaRepository.findById(dentistaUsuario.getId());
-        Dentista dentista = compararDentista(dentistaUsuario, dentistaBanco.get());
+    public Dentista alterar(Dentista dentistaUsuario) throws ResourceNotFoundException {
+        Dentista dentistaBanco = dentistaRepository.findById(dentistaUsuario.getId())
+                .orElseThrow(() -> {
+                    logger.error("Dentista não encontrado");
+                    return new ResourceNotFoundException("Requisição inválida");
+                });
+        Dentista dentista = compararDentista(dentistaUsuario, dentistaBanco);
         Dentista dentistaSalvo = dentistaRepository.save(dentista);
         logger.info("Dentista alterado com sucesso!");
         return dentistaSalvo;
     }
 
-    public Optional<Dentista> consultaDentistaPorId (Long id) {
-        return dentistaRepository.findById(id);
+    public Dentista consultaDentistaPorId(Long id) throws ResourceNotFoundException {
+
+        return dentistaRepository.findById(id).orElseThrow(() -> {
+            logger.error("Dentista não encontrado");
+            return new ResourceNotFoundException("Requisição inválida");
+        });
+
     }
 
-    public List<Dentista> consultaDentistas () {
+    public List<Dentista> consultaDentistas() {
 
         return dentistaRepository.findAll();
 
