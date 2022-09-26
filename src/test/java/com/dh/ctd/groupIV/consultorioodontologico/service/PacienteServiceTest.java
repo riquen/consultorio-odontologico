@@ -77,6 +77,16 @@ class PacienteServiceTest {
             Paciente pacienteConsultado = pacienteService.consultaPacientePorId(pacienteCadastrado.getId());
             assertEquals(paciente2, pacienteConsultado);
         }
+
+        @Test
+        void consultaPacientePorIDInexistenteRetornaResourceNotFound() {
+
+            Long pacienteIdInexistente = new Long(-1);
+            assertThrows(ResourceNotFoundException.class, () -> {
+                pacienteService.consultaPacientePorId(pacienteIdInexistente);
+            });
+
+        }
     }
 
 //    @Nested

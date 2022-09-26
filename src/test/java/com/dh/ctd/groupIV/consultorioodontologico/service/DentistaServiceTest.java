@@ -71,5 +71,15 @@ class DentistaServiceTest {
             Dentista dentistaConsultado = dentistaService.consultaDentistaPorId(dentistaCadastrado.getId());
             assertEquals(dentista2, dentistaConsultado);
         }
+
+        @Test
+        void consultaDentistaPorIDInexistenteRetornaResourceNotFound() {
+
+            Long dentistaIdInexistente = new Long(-1);
+            assertThrows(ResourceNotFoundException.class, () -> {
+                dentistaService.consultaDentistaPorId(dentistaIdInexistente);
+            });
+
+        }
     }
 }

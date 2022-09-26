@@ -240,7 +240,7 @@ class ConsultaServiceTest {
         }
 
         @Test
-        void consultaConsultaPorIDInexistenteRetorna() throws CadastroInvalidoException, ResourceNotFoundException {
+        void consultaConsultaPorIDInexistenteRetornaResourceNotFound() {
 
             Long consultaIdInexistente = new Long(-1);
             assertThrows(ResourceNotFoundException.class, () -> {
