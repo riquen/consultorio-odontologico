@@ -37,7 +37,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/consulta").hasAnyAuthority("ADMIN","USER")
                 .antMatchers("/dentista", "/paciente").hasAuthority("ADMIN")
                 .antMatchers(HttpMethod.POST,"/auth").permitAll()
-                .anyRequest().authenticated()
+                //.anyRequest().authenticated()
                 .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().addFilterBefore(autenticacaoViaTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
