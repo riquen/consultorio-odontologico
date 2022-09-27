@@ -16,6 +16,7 @@ import javax.transaction.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -247,6 +248,29 @@ class ConsultaServiceTest {
                 consultaService.consultaConsultaPorId(consultaIdInexistente);
             });
 
+        }
+        @Test
+        void consultaListaDeConsultas() throws CadastroInvalidoException {
+            Endereco enderecoPrimeiroPaciente = new Endereco(null, "Rua Uruguai", "1234", "casa", "centro", "Porto Alegre", "RS", "99053874", "Brazil");
+            Paciente pacientePrimeiraConsulta = new Paciente(null, "Henrique", "Arantes", enderecoPrimeiroPaciente, "123456", LocalDate.of(22, 10, 10));
+            pacientePrimeiraConsulta = pacienteService.cadastrar(pacientePrimeiraConsulta);
+
+            Endereco enderecoSegundoPaciente = new Endereco(null, "Rua Brasil", "12345", null, "Legal", "Porto Alegre", "RS", "99053874", "Brazil");
+            Paciente pacienteSegundaConsulta = new Paciente(null, "Paulo", "Nunes", enderecoSegundoPaciente, "12453456", LocalDate.of(22, 10, 10));
+            pacienteSegundaConsulta = pacienteService.cadastrar(pacienteSegundaConsulta);
+
+            Dentista dentista = new Dentista(null, "Henrique", "Arantes", "055360");
+            Dentista dentistaCadastrado = dentistaService.cadastrar(dentista);
+
+            LocalDateTime dataHoraPrimeiraConsulta = LocalDateTime.of(2022, 9, 25, 8, 30);
+            LocalDateTime dataHoraSegundaConsulta = LocalDateTime.of(2022, 9, 25, 9, 30);
+
+            Consulta primeiraConsulta = new Consulta(null, pacientePrimeiraConsulta, dentistaCadastrado, dataHoraPrimeiraConsulta);
+            Consulta segundaConsulta = new Consulta(null, pacienteSegundaConsulta, dentistaCadastrado, dataHoraSegundaConsulta);
+            consultaService.cadastrar(primeiraConsulta);
+            consultaService.cadastrar(segundaConsulta);
+            List<Consulta> listaDeConsultas = consultaService.consultaConsultas();
+            assertTrue(listaDeConsultas.size()>=2);
         }
     }
 }

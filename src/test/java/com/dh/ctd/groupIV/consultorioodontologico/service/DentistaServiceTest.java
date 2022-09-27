@@ -3,8 +3,6 @@ package com.dh.ctd.groupIV.consultorioodontologico.service;
 import com.dh.ctd.groupIV.consultorioodontologico.entity.Dentista;
 import com.dh.ctd.groupIV.consultorioodontologico.exceptions.CadastroInvalidoException;
 import com.dh.ctd.groupIV.consultorioodontologico.exceptions.ResourceNotFoundException;
-import org.assertj.core.api.Assert;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -12,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.transaction.Transactional;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -79,7 +79,15 @@ class DentistaServiceTest {
             assertThrows(ResourceNotFoundException.class, () -> {
                 dentistaService.consultaDentistaPorId(dentistaIdInexistente);
             });
-
+        }
+        @Test
+        void consultaListaDeDentistas() throws CadastroInvalidoException {
+            Dentista dentista1 = new Dentista(null, "Henrique", "Arantes", "123456");
+            dentistaService.cadastrar(dentista1);
+            Dentista dentista2 = new Dentista(null, "Henrique", "Arantes", "123986");
+            dentistaService.cadastrar(dentista2);
+            List<Dentista> listaDeDentistas = dentistaService.consultaDentistas();
+            assertTrue(listaDeDentistas.size()>=2);
         }
     }
 }

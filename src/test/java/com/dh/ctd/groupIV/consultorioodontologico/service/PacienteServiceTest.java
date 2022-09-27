@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.transaction.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
@@ -85,22 +86,42 @@ class PacienteServiceTest {
             assertThrows(ResourceNotFoundException.class, () -> {
                 pacienteService.consultaPacientePorId(pacienteIdInexistente);
             });
-
+        }
+        @Test
+        void consultaListaDePacientes() throws CadastroInvalidoException {
+                Endereco endereco1 = new Endereco(null, "Rua Uruguai", "1234", "casa", "centro", "Porto Alegre", "RS", "99053874", "Brazil");
+                Paciente paciente1 = new Paciente(null, "Henrique", "Arantes", endereco1, "123456", LocalDate.of(22, 10, 10));
+                pacienteService.cadastrar(paciente1);
+                Endereco endereco2 = new Endereco(null, "Rua Uruguai", "1234", "casa", "centro", "Porto Alegre", "RS", "99053874", "Brazil");
+                Paciente paciente2 = new Paciente(null, "Henrique", "Arantes", endereco2, "123986", LocalDate.of(22, 10, 10));
+                pacienteService.cadastrar(paciente2);
+                List<Paciente> listaDePacientes = pacienteService.consultaPacientes();
+                assertTrue(listaDePacientes.size()>=2);
         }
     }
 
-//    @Nested
-//    @DisplayName("Teste para excluir Paciente")
-//    class PacienteServiceExcluirTest{
-//        @Test
-//        void excluiPacientePorID() throws CadastroInvalidoException, ResourceNotFoundException {
-//            Endereco endereco1 = new Endereco(null, "Rua Uruguai", "1234", "casa", "centro", "Porto Alegre", "RS", "99053874", "Brazil");
-//            Paciente paciente2= new Paciente(null, "Henrique", "Arantes", endereco1, "123456", LocalDate.of(22,10,10));
-//            Paciente pacienteCadastrado = pacienteService.cadastrar(paciente2);
-//            Paciente pacienteExcluido = pacienteService.excluir(pacienteCadastrado.getId());
-//            assertEquals(pacienteExcluido.getId(), null);
-//        }
-//    }
+    @Nested
+    @DisplayName("Teste para excluir Paciente")
+    class PacienteServiceExcluirTest{
+        @Test
+        void excluiPacientePorID() throws CadastroInvalidoException, ResourceNotFoundException {
+            Endereco endereco1 = new Endereco(null, "Rua Uruguai", "1234", "casa", "centro", "Porto Alegre", "RS", "99053874", "Brazil");
+            Paciente paciente2= new Paciente(null, "Henrique", "Arantes", endereco1, "123456", LocalDate.of(22,10,10));
+            Paciente pacienteCadastrado = pacienteService.cadastrar(paciente2);
+            pacienteService.excluir(pacienteCadastrado.getId());
+            assertThrows(ResourceNotFoundException.class, () -> {
+                pacienteService.consultaPacientePorId(pacienteCadastrado.getId());
+            });
+        }
+
+        @Test
+        void excluiPacientePorIDInexistenteRetornaResourceNotFound() {
+            Long pacienteIdInexistente = new Long(-1);
+            assertThrows(ResourceNotFoundException.class, () -> {
+                pacienteService.excluir(pacienteIdInexistente);
+            });
+        }
+    }
 }
 
 
